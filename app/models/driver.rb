@@ -6,7 +6,9 @@ class Driver < ApplicationRecord
     # reverse_geocoded_by :latitude, :longitude
     # after_validation :reverse_geocode
 
-    validates :latitude,:longitude,:name, :phone, :email, presence: true
+    has_secure_password
+
+    validates :latitude,:longitude,:name, :phone, :email, :password_digest,presence: true
     validates :phone, uniqueness: { message: 'Phone Already Exists' }
     validates :email, uniqueness: { message: 'Email Already Exists' }
 

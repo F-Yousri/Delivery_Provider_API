@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   post 'orders', to: 'orders#show'
   post 'registerdriver' ,to: 'drivers#create'
-  get 'getdriver' ,to: 'drivers#locations'
+  post '/api/v1/authentication/drivers/signin' ,to: 'authentication#authenticate'
   
 
 end

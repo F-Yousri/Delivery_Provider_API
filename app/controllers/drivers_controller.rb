@@ -1,12 +1,23 @@
 class DriversController < ApplicationController
     before_action :check_duplication , only: :create
+    skip_before_action :authorize_request, only: :create
 
    def create
     @driver=Driver.new(driver_params)
     @driver.save
     render json: @driver
    end
-   
+
+  def login
+    driver=Driver.find()
+    auth_token = AuthenticateDriver.new(driver.email, driver.password).call
+    response = { message: Message.account_created, auth_token: auth_token }
+    json_response(response, :created)
+  end
+  
+  def update
+
+  end
    
     def self.locations(srcLTD,srcLGT)
         @Drivers_distances_array = []
@@ -62,6 +73,6 @@ class DriversController < ApplicationController
       end
 
       def driver_params
-        params.permit(:name,:phone,:email,:latitude,:longitude)
+        params.permit(:name,:phone,:email,:latitude,:longitude,:password)
       end
 end
