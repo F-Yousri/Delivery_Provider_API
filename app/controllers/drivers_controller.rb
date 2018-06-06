@@ -26,8 +26,9 @@ class DriversController < ApplicationController
     @driver_id=@current_driver.id
     @driver=Driver.find(@driver_id)
     @driver.status=0
+    response={message: Message.driver_logout}
     @driver.save
-    json_response(mss: "logged out successfully",driver: @driver)
+    json_response(response)
   end
    
     def self.locations(srcLTD,srcLGT)
