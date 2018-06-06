@@ -28,13 +28,13 @@ class DriversController < ApplicationController
           # end of driver array   
         end
     
-        #Shortest Route To Source
+        #Sort Drivers Locations
         @Sorted_Drivers_Distances_Array=@Drivers_distances_array.sort
-    
-        @Nearest_Driver_Location=@Sorted_Drivers_Distances_Array[0]
-    
-        @NearestDriver=@driver_hash[@Nearest_Driver_Location]
-        # End of Short Route Finding 
+        # End of sorting drivers locations
+
+        # Getting Nearest Driver
+        @NearestDriver=@driver_hash[@Sorted_Drivers_Distances_Array[0]]
+        # End of getting nearest driver
     
         #Final Sorted Drivers Obj
           @Sorted_Drivers_Distances_Array.each do |driverloc|
@@ -44,7 +44,7 @@ class DriversController < ApplicationController
         end
         #End of SOrted Dirvers Obj
 
-        data={"nn": @NearestDriver,"Distances": @Sorted_Drivers_Distances_Array ,"Drivers_List": @DriversList }
+        data={"nearest": @NearestDriver,"Distances": @Sorted_Drivers_Distances_Array ,"Drivers_List": @DriversList }
         render json: data
          
       end

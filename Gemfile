@@ -23,6 +23,7 @@ gem 'devise', '~> 4.4', '>= 4.4.3'
 
 gem 'geocoder'
 gem 'gmaps4rails'
+gem 'json'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
