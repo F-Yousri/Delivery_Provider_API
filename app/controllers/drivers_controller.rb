@@ -5,18 +5,29 @@ class DriversController < ApplicationController
    def create
     @driver=Driver.new(driver_params)
     @driver.save
-    render json: @driver
+    auth_token = AuthenticateDriver.new(@driver.email, @driver.password).call
+    response = { message: Message.account_created, auth_token: auth_token ,driver: @driver }
+    # render json: @driver
+    json_response(response, :created)
    end
 
-  def login
-    driver=Driver.find()
-    auth_token = AuthenticateDriver.new(driver.email, driver.password).call
-    response = { message: Message.account_created, auth_token: auth_token }
-    json_response(response, :created)
-  end
   
   def update
+    @driver_id=@current_driver.id
+    @driver=Driver.find(@driver_id)
+    @driver.latitude=params[:latitude]
+    @driver.longitude=params[:longitude]
+    @driver.save
+    json_response(driver: @driver)
+  end
 
+
+  def signout
+    @driver_id=@current_driver.id
+    @driver=Driver.find(@driver_id)
+    @driver.status=0
+    @driver.save
+    json_response(mss: "logged out successfully",driver: @driver)
   end
    
     def self.locations(srcLTD,srcLGT)
@@ -73,6 +84,6 @@ class DriversController < ApplicationController
       end
 
       def driver_params
-        params.permit(:name,:phone,:email,:latitude,:longitude,:password)
+        params.permit(:name,:phone,:email,:latitude,:longitude,:password,:token)
       end
 end

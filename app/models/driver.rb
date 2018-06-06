@@ -7,6 +7,7 @@ class Driver < ApplicationRecord
     # after_validation :reverse_geocode
 
     has_secure_password
+    enum status: { offline: 0, online: 1, busy: 2 }
 
     validates :latitude,:longitude,:name, :phone, :email, :password_digest,presence: true
     validates :phone, uniqueness: { message: 'Phone Already Exists' }

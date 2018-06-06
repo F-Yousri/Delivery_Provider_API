@@ -5,6 +5,6 @@ Rails.application.routes.draw do
   post 'orders', to: 'orders#show'
   post 'registerdriver' ,to: 'drivers#create'
   post '/api/v1/authentication/drivers/signin' ,to: 'authentication#authenticate'
-  
-
+  post '/api/v1/authentication/drivers/update' ,to: 'drivers#update'
+  post '/api/v1/authentication/drivers/signout' ,to: 'drivers#signout'
 end
