@@ -73,6 +73,7 @@ ActiveRecord::Schema.define(version: 2018_06_07_104406) do
     t.string "payment_method"
     t.float "src_longitude"
     t.float "dest_longitude"
+    t.float "cost", default: 0.0
   end
 
   create_table "vehicles", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
