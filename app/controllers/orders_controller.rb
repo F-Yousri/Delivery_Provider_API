@@ -1,18 +1,16 @@
+
 class OrdersController < ApplicationController
-<<<<<<< HEAD
- 
-=======
-    require 'json'
->>>>>>> 288b184d94633870b0931df4b851f8ed3fbcc93a
+ require 'json'
     def show 
         order = Order.new(order_params)
-        response=DriversController.locations(params[:src_latitude],params[:src_longitude])
-        distance = ((JSON response)["Distances"][0])
+        response=DriversController.locations(params[:src_latitude],params[:src_longitude],order)
 
-        order.cost= (distance*1300)*0.05
-        if order.save
-        render json: order
+        # order.cost= (distance*1300)*0.05
+        if JSON.parse(response)['message']=='success'
+            order.save
+
         end
+        render json: response
     end
 
     def order_params

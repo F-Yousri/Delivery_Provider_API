@@ -36,11 +36,11 @@ class DriversController < ApplicationController
     json_response(response)
   end
    
-    def self.locations(srcLTD,srcLGT)
+    def self.locations(srcLTD,srcLGT,order)
         @Drivers_distances_array = []
         @DriversList=[]
         @driver_hash=Hash.new()
-        @drivers = Driver.all
+        @drivers = Driver.where('status','=',1)
         @SourceLatitude=srcLTD
         @SourceLogitude=srcLGT
       
@@ -71,22 +71,25 @@ class DriversController < ApplicationController
           @DriversList.push(@DriverObject)
         end
         #End of SOrted Dirvers Obj
-        json_response assign_driver @driverList
+        # render json: {fahd: @DriversList}
+        render json:(self.assign_driver(@DriversList,order))
          
       end
 
 
-      def assign_driver drivers
+      def self.assign_driver(drivers,order)
+        if drivers
         for driver in drivers do
-          if check_available? driver
+          if self.check_available?(driver,order)
             return response = {message: Message.success, driver: driver}                
           end
         end
-        return response = {message: Message.no_driver}        
+      end
+        return response = {message: Message.no_driver}       
       end
       
-      def check_available? driver
-        return false
+      def self.check_available?(driver,order)
+        return true
       end 
       def check_duplication
         if Driver.find_by_email(driver_params[:email])
