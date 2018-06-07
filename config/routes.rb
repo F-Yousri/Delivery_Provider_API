@@ -8,5 +8,5 @@ Rails.application.routes.draw do
   post '/api/v1/authentication/drivers/signin' ,to: 'authentication#authenticate'
   post '/api/v1/authentication/drivers/update' ,to: 'drivers#update'
   post '/api/v1/authentication/drivers/signout' ,to: 'drivers#signout'
-
+  get 'test', to: 'orders#test'
 end

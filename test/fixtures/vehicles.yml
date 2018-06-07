@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  min_weight: 1.5
+  max_weight: 1.5
+  vehicle_kind: MyString
+  vehicle_number: MyString
+  vehicle_cost_rate: 1.5
+
+two:
+  min_weight: 1.5
+  max_weight: 1.5
+  vehicle_kind: MyString
+  vehicle_number: MyString
+  vehicle_cost_rate: 1.5
