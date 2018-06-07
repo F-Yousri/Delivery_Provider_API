@@ -36,13 +36,13 @@ class DriversController < ApplicationController
     json_response(response)
   end
    
-    def self.locations(srcLTD,srcLGT,order)
+    def self.locations(order)
         @Drivers_distances_array = []
         @DriversList=[]
         @driver_hash=Hash.new()
         @drivers = Driver.where('status','=',1)
-        @SourceLatitude=srcLTD
-        @SourceLogitude=srcLGT
+        @SourceLatitude=order.src_latitude
+        @SourceLogitude=order.src_longitude
       
         @hash = Gmaps4rails.build_markers(@drivers) do |driver, marker|
           marker.lat driver.latitude
@@ -103,6 +103,6 @@ class DriversController < ApplicationController
       end
 
       def driver_params
-        params.permit(:name,:phone,:email,:latitude,:longitude,:password,:token)
+        params.permit(:name,:phone,:email,:latitude,:longitude,:password,:vehicle_kind)
       end
 end
