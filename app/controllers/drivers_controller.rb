@@ -1,6 +1,11 @@
 class DriversController < ApplicationController
+    before_action :authorize_request
     before_action :check_duplication , only: :create
     skip_before_action :authorize_request, only: :create
+
+    def authorize_request
+      @current_driver = (AuthorizeApiRequest.new(request.headers).call)[:driver]
+    end
 
    def create
     @driver=Driver.new(driver_params)

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_06_144103) do
+ActiveRecord::Schema.define(version: 2018_06_06_161241) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "name", null: false
@@ -73,6 +73,7 @@ ActiveRecord::Schema.define(version: 2018_06_06_144103) do
     t.string "payment_method"
     t.float "src_longitude"
     t.float "dest_longitude"
+    t.float "cost", default: 0.0
   end
 
 end
