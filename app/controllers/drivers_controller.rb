@@ -1,4 +1,5 @@
 class DriversController < ApplicationController
+    require 'json'
     before_action :authorize_request
     before_action :check_duplication , only: :create
     skip_before_action :authorize_request, only: :create
@@ -36,13 +37,17 @@ class DriversController < ApplicationController
     json_response(response)
   end
    
-    def self.locations(order)
+    def self.locations(order,vehicle)
+        @v = vehicle[0].vehicle_kind
         @Drivers_distances_array = []
         @DriversList=[]
         @driver_hash=Hash.new()
-        @drivers = Driver.where('status','=',1)
+        @drivers = Driver.where("status = :status AND vehicle_kind = :kind",
+        {status: 1, kind: @v})
         @SourceLatitude=order.src_latitude
         @SourceLogitude=order.src_longitude
+        @Destination_Latitude=order.dest_latitude
+        @Destination_Logitude=order.dest_longitude
       
         @hash = Gmaps4rails.build_markers(@drivers) do |driver, marker|
           marker.lat driver.latitude
@@ -55,7 +60,7 @@ class DriversController < ApplicationController
           end
           # end of driver array   
         end
-    
+      
         #Sort Drivers Locations
         @Sorted_Drivers_Distances_Array=@Drivers_distances_array.sort
         # End of sorting drivers locations
@@ -63,7 +68,7 @@ class DriversController < ApplicationController
         # Getting Nearest Driver
         @NearestDriver=@driver_hash[@Sorted_Drivers_Distances_Array[0]]
         # End of getting nearest driver
-    
+            
         #Final Sorted Drivers Obj
           @Sorted_Drivers_Distances_Array.each do |driverloc|
           @DriverObject=@driver_hash[driverloc]
