@@ -1,6 +1,5 @@
 class OrdersController < ApplicationController
  
-
     def show 
         order = Order.new(order_params)
         response=DriversController.locations(params[:src_latitude],params[:src_longitude])

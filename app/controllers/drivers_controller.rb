@@ -66,13 +66,23 @@ class DriversController < ApplicationController
           @DriversList.push(@DriverObject)
         end
         #End of SOrted Dirvers Obj
-
-        data={"nearest": @NearestDriver,"Distances": @Sorted_Drivers_Distances_Array ,"Drivers_List": @DriversList }
-        render json: data
+        json_response assign_driver @driverList
          
       end
 
 
+      def assign_driver drivers
+        for driver in drivers do
+          if check_available? driver
+            return response = {message: Message.success, driver: driver}                
+          end
+        end
+        return response = {message: Message.no_driver}        
+      end
+      
+      def check_available? driver
+        return false
+      end 
       def check_duplication
         if Driver.find_by_email(driver_params[:email])
             @response = {message: "Email Already Exists"}
