@@ -25,6 +25,7 @@ gem 'geocoder'
 gem 'gmaps4rails'
 gem 'jwt'
 gem 'json'
+gem 'pg'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

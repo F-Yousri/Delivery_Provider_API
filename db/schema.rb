@@ -78,7 +78,7 @@ ActiveRecord::Schema.define(version: 2018_06_07_130721) do
     t.float "weight"
   end
 
-  create_table "vehicles", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "vehicles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.float "min_weight"
     t.float "max_weight"
     t.string "vehicle_kind"
