@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
     include Response
     include ExceptionHandler
 
-    before_filter :cors_set_access_control_headers
+    before_action :cors_set_access_control_headers
 
     def cors_set_access_control_headers
         headers['Access-Control-Allow-Origin'] = '*'
