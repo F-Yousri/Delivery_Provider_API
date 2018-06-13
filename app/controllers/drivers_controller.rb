@@ -38,16 +38,17 @@ class DriversController < ApplicationController
   end
    
     def self.locations(order,vehicle)
-        @v = vehicle[0].vehicle_kind
+        @vehicle = vehicle[0].vehicle_kind
         @Drivers_distances_array = []
         @DriversList=[]
         @driver_hash=Hash.new()
         @drivers = Driver.where("status = :status AND vehicle_kind = :kind",
-        {status: 1, kind: @v})
+        {status: 1, kind: @vehicle})
         @SourceLatitude=order.src_latitude
         @SourceLogitude=order.src_longitude
         @Destination_Latitude=order.dest_latitude
         @Destination_Logitude=order.dest_longitude
+        
       
         @hash = Gmaps4rails.build_markers(@drivers) do |driver, marker|
           marker.lat driver.latitude
