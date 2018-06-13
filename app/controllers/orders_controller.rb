@@ -5,14 +5,17 @@ class OrdersController < ApplicationController
         order = Order.new(order_params)
         @vehicle = Vehicle.where("min_weight <= :weight AND max_weight >= :weight",
         {weight: order.weight.to_i, weight: order.weight.to_i})
-        # json_response(@vehicle)
+      
         driver_response=DriversController.locations(order,@vehicle)
         
         vehicle=Vehicle.find_by_vehicle_kind(JSON.parse(driver_response)["driver"]["vehicle_kind"])
        
-          # distance between order source and destination
+        # distance between order source and destination
         @src_dest_distance=Geocoder::Calculations.distance_between([order.src_latitude,order.src_longitude], [order.dest_latitude,order.dest_longitude])
-        # response["distance"]=@src_dest_distance
+        # lat_lon = "#{order.src_latitude},#{order.src_longitude}"
+        # @city = Geocoder.search(lat_lon).first
+        # ss={city: @city.data['address_components'][4]}
+
         order.cost= (@src_dest_distance*1300)*vehicle["vehicle_cost_rate"]
         if JSON.parse(driver_response)['message']=='success'
             order.save
@@ -20,6 +23,7 @@ class OrdersController < ApplicationController
         # parse response to add key& value to it
         driver_response=JSON.parse(driver_response)
         driver_response['cost']=order.cost
+    
         json_response(driver_response)
     end
 
