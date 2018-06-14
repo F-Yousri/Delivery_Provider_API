@@ -3,7 +3,6 @@ class Driver < ApplicationRecord
     # geocoded_by :address 
     # after_validation :geocode
    
-
     has_secure_password
     enum status: { offline: 0, online: 1, busy: 2 }
 

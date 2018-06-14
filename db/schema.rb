@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 2018_06_13_153126) do
+=======
+ActiveRecord::Schema.define(version: 2018_06_13_232958) do
+>>>>>>> fa8382d5aa269923834790b670881b6d0ce92ee9
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "name", null: false
@@ -76,10 +80,14 @@ ActiveRecord::Schema.define(version: 2018_06_13_153126) do
     t.float "dest_longitude"
     t.float "cost", default: 0.0
     t.float "weight"
+<<<<<<< HEAD
     t.integer "status", default: 0
+=======
+    t.string "description"
+>>>>>>> fa8382d5aa269923834790b670881b6d0ce92ee9
   end
 
-  create_table "vehicles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "vehicles", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.float "min_weight"
     t.float "max_weight"
     t.string "vehicle_kind"
