@@ -24,7 +24,15 @@ class DriversController < ApplicationController
     @driver.latitude=params[:latitude]
     @driver.longitude=params[:longitude]
     @driver.save
-    json_response(driver: @driver)
+    json_response response= {messag: Message.success, driver: @driver}
+  end
+
+  def reg_device_token
+    @driver_id=@current_driver.id
+    @driver=Driver.find(@driver_id)
+    @driver.device_token=params[:device_token]
+    @driver.save
+    json_response response= {message: Message.success}
   end
 
 
@@ -32,7 +40,7 @@ class DriversController < ApplicationController
     @driver_id=@current_driver.id
     @driver=Driver.find(@driver_id)
     @driver.status=0
-    response={message: Message.driver_logout}
+    response={message: Message.success}
     @driver.save
     json_response(response)
   end
@@ -94,8 +102,10 @@ class DriversController < ApplicationController
         return response = {message: Message.no_driver}       
       end
       
-      def self.check_available?(driver,order)
-        return true
+      def self.check_available?(order,driver)
+        DriverNotification.send_notification(order,driver.device_token)
+        sleep 120
+        order.status == 1 ? true : false
       end 
       def check_duplication
         if Driver.find_by_email(driver_params[:email])

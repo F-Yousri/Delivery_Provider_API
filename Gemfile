@@ -26,6 +26,7 @@ gem 'gmaps4rails'
 gem 'jwt'
 gem 'json'
 gem 'pg'
+gem 'google-api-client', '~> 0.11'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

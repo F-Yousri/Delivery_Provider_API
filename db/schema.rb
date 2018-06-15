@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_07_130721) do
+ActiveRecord::Schema.define(version: 2018_06_14_215944) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -61,6 +61,7 @@ ActiveRecord::Schema.define(version: 2018_06_07_130721) do
     t.string "password_digest"
     t.integer "status", default: 0
     t.string "vehicle_kind"
+    t.string "device_token"
   end
 
   create_table "orders", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -76,6 +77,11 @@ ActiveRecord::Schema.define(version: 2018_06_07_130721) do
     t.float "dest_longitude"
     t.float "cost", default: 0.0
     t.float "weight"
+<<<<<<< Updated upstream
+=======
+    t.integer "status", default: 0
+    t.string "description"
+>>>>>>> Stashed changes
   end
 
   create_table "vehicles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
