@@ -5,10 +5,13 @@ class OrdersController < ApplicationController
         order = Order.new(order_params)
         @vehicle = Vehicle.where("min_weight <= :weight AND max_weight >= :weight",
         {weight: order.weight.to_i, weight: order.weight.to_i})
+<<<<<<< HEAD
         json_response response={ message: Message.no_vehicle } and return if @vehicle.empty? 
+=======
+        json_response(Message.no_vehicle) and return if @vehicle.empty? 
+>>>>>>> master
         # json_response(@vehicle)
         driver_response=DriversController.locations(order,@vehicle)
-        
         vehicle=Vehicle.find_by_vehicle_kind(JSON.parse(driver_response)["driver"]["vehicle_kind"])
        
         # distance between order source and destination
@@ -18,8 +21,11 @@ class OrdersController < ApplicationController
         # ss={city: @city.data['address_components'][4]}
 
         order.cost= (@src_dest_distance*1300)*vehicle["vehicle_cost_rate"]
+        order.status=1
         if JSON.parse(driver_response)['message']=='success'
-            order.save
+            order.save!
+        else
+            json_response(driver_response) and return
         end
         # parse response to add key& value to it
         driver_response=JSON.parse(driver_response)
@@ -29,6 +35,6 @@ class OrdersController < ApplicationController
     end
 
     def order_params
-        params.permit(:src_latitude,:src_longitude,:dest_latitude,:dest_longitude,:payment_method,:time,:title,:images,:weight)
+        params.permit(:src_latitude,:src_longitude,:dest_latitude,:dest_longitude,:payment_method,:time,:title,:images,:weight,:description)
     end
 end
