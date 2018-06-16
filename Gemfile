@@ -29,6 +29,7 @@ gem 'pg'
 gem 'google-api-client', '~> 0.11'
 gem 'carrierwave', '~> 1.0'
 gem "carrierwave-base64"
+gem 'httparty'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
