@@ -5,11 +5,7 @@ class OrdersController < ApplicationController
         order = Order.new(order_params)
         @vehicle = Vehicle.where("min_weight <= :weight AND max_weight >= :weight",
         {weight: order.weight.to_i, weight: order.weight.to_i})
-<<<<<<< HEAD
         json_response response={ message: Message.no_vehicle } and return if @vehicle.empty? 
-=======
-        json_response(Message.no_vehicle) and return if @vehicle.empty? 
->>>>>>> master
         # json_response(@vehicle)
         driver_response=DriversController.locations(order,@vehicle)
         vehicle=Vehicle.find_by_vehicle_kind(JSON.parse(driver_response)["driver"]["vehicle_kind"])

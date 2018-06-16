@@ -80,11 +80,6 @@ ActiveRecord::Schema.define(version: 2018_06_14_215944) do
 
     t.integer "status", default: 0
     t.string "description"
-<<<<<<< HEAD
-
-=======
-    t.integer "status", default: 0
->>>>>>> master
   end
 
   create_table "vehicles", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
