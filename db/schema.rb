@@ -83,6 +83,14 @@ ActiveRecord::Schema.define(version: 2018_06_16_160115) do
     t.string "dropoff_location"
   end
 
+  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "domain"
+    t.string "secret_key"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "status"
+  end
+
   create_table "vehicles", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.float "min_weight"
     t.float "max_weight"
