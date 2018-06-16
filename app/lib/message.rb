@@ -14,6 +14,10 @@ class Message
       'Sorry, no driver available for your order'
     end
 
+    def self.no_vehicle
+      'Sorry, no vehicle available is suitable for your order'
+    end
+
     def self.invalid_token
       'Invalid token'
     end
