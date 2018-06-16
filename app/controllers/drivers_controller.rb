@@ -94,7 +94,7 @@ class DriversController < ApplicationController
       def self.assign_driver(drivers,order)
         if drivers
         for driver in drivers do
-          if self.check_available?(driver,order)
+          if true #self.check_available?(driver,order)
             driver={name:driver.name ,phone: driver.phone ,vehicle_kind: driver.vehicle_kind}
             return response = {message: Message.success, driver: driver}                
           end
