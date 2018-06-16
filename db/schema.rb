@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_14_215944) do
+ActiveRecord::Schema.define(version: 2018_06_16_160115) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "name", null: false
@@ -79,6 +79,8 @@ ActiveRecord::Schema.define(version: 2018_06_14_215944) do
     t.float "weight"
     t.string "description"
     t.integer "status", default: 0
+    t.string "pickup_location"
+    t.string "dropoff_location"
   end
 
   create_table "vehicles", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
