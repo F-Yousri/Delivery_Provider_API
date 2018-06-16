@@ -77,6 +77,7 @@ ActiveRecord::Schema.define(version: 2018_06_13_232958) do
     t.float "cost", default: 0.0
     t.float "weight"
     t.string "description"
+    t.integer "status", default: 0
   end
 
   create_table "vehicles", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
