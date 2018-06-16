@@ -12,10 +12,18 @@ class ApplicationController < ActionController::Base
       end
     # called before every action on controllers
   
-    attr_reader :current_driver
+    attr_reader :current_driver,:current_user
   
     private
   
     # Check for valid request token and return driver
-   
+    def authorize_request
+        @current_user = (AuthorizeApiRequestService.new(request.headers).call)[:user]
+      end
+    
+      def is_verified
+       if !((AuthorizeApiRequestService.new(request.headers).call)[:user].verified==true)
+          json_response({message: Message.account_not_verified})
+       end
+    end
 end

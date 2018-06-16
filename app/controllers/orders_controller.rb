@@ -1,6 +1,7 @@
 
 class OrdersController < ApplicationController
  require 'json'
+ before_action :authorize_request 
     def show 
         order = Order.new(order_params)
         @vehicle = Vehicle.where("min_weight <= :weight AND max_weight >= :weight",
@@ -29,6 +30,6 @@ class OrdersController < ApplicationController
     end
 
     def order_params
-        params.permit(:src_latitude,:src_longitude,:dest_latitude,:dest_longitude,:payment_method,:time,:title,:images,:weight)
+        params.permit(:src_latitude,:src_longitude,:dest_latitude,:dest_longitude,:payment_method,:time,:title,:images,:weight,:description)
     end
 end
