@@ -36,4 +36,5 @@ class DriverNotification
    
        params[:data] = data
        params
-     end
+     end 
+end
