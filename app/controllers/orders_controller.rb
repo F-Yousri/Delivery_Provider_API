@@ -1,7 +1,7 @@
 
 class OrdersController < ApplicationController
  require 'json'
-    def show 
+    def create 
         order = Order.new(order_params)
         @vehicle = Vehicle.where("min_weight <= :weight AND max_weight >= :weight",
         {weight: order.weight.to_i, weight: order.weight.to_i})
@@ -16,7 +16,7 @@ class OrdersController < ApplicationController
         # lat_lon = "#{order.src_latitude},#{order.src_longitude}"
         # @city = Geocoder.search(lat_lon).first
         # ss={city: @city.data['address_components'][4]}
-
+        # order.images= "localhost:3000"+order.images
         order.cost= (@src_dest_distance*1300)*vehicle["vehicle_cost_rate"]
         if JSON.parse(driver_response)['message']=='success'
             order.save
@@ -27,8 +27,11 @@ class OrdersController < ApplicationController
     
         json_response(driver_response)
     end
+      
+    
+    
 
     def order_params
-        params.permit(:src_latitude,:src_longitude,:dest_latitude,:dest_longitude,:payment_method,:time,:title,:images,:weight)
+        params.permit(:src_latitude,:src_longitude,:dest_latitude,:dest_longitude,:payment_method,:time,:title,:images,:weight,:description)
     end
 end

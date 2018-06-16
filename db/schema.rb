@@ -77,10 +77,7 @@ ActiveRecord::Schema.define(version: 2018_06_14_215944) do
     t.float "dest_longitude"
     t.float "cost", default: 0.0
     t.float "weight"
-
-    t.integer "status", default: 0
     t.string "description"
-
   end
 
   create_table "vehicles", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|

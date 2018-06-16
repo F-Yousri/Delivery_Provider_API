@@ -27,6 +27,8 @@ gem 'jwt'
 gem 'json'
 gem 'pg'
 gem 'google-api-client', '~> 0.11'
+gem 'carrierwave', '~> 1.0'
+gem "carrierwave-base64"
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
