@@ -3,20 +3,15 @@ class DriversController < ApplicationController
     before_action :authorize_request ,:is_logged_in
     before_action :check_duplication , only: :create
     skip_before_action :authorize_request, only: :create
-    skip_before_action :is_logged_in, only: :create
+    skip_before_action :is_logged_in, only: :create 
 
     def authorize_request
       @current_driver = (AuthorizeApiRequest.new(request.headers).call)[:driver]
-      if @current_driver 
-        driver=Driver.find(current_driver.id)
-        driver.status=1
-        driver.save
-      end
     end
 
     def is_logged_in
-      if !((AuthorizeApiRequest.new(request.headers).call)[:driver].status==1)
-         json_response({message: Message.driver_is_offline})
+      if !((AuthorizeApiRequest.new(request.headers).call)[:driver].status=='online')
+         json_response({message: Message.driver_is_offline,d: current_driver.status} )
       end
     end
 
