@@ -1,11 +1,18 @@
 class DriversController < ApplicationController
     require 'json'
-    before_action :authorize_request
+    before_action :authorize_request ,:is_logged_in
     before_action :check_duplication , only: :create
     skip_before_action :authorize_request, only: :create
+    skip_before_action :is_logged_in, only: :create
 
     def authorize_request
       @current_driver = (AuthorizeApiRequest.new(request.headers).call)[:driver]
+    end
+
+    def is_logged_in
+      if !((AuthorizeApiRequest.new(request.headers).call)[:driver].status==1)
+         json_response({message: Message.driver_is_offline})
+      end
     end
 
    def create
@@ -13,18 +20,17 @@ class DriversController < ApplicationController
     @driver.save
     auth_token = AuthenticateDriver.new(@driver.email, @driver.password).call
     response = { message: Message.account_created, auth_token: auth_token ,driver: @driver }
-    # render json: @driver
-    json_response(response, :created)
+    json_response(response)
    end
 
   
   def update
-    @driver_id=@current_driver.id
+    @driver_id=current_driver.id
     @driver=Driver.find(@driver_id)
     @driver.latitude=params[:latitude]
     @driver.longitude=params[:longitude]
     @driver.save
-    json_response response= {messag: Message.success, driver: @driver}
+    json_response response= {messag: Message.success}
   end
 
   def reg_device_token
@@ -37,11 +43,12 @@ class DriversController < ApplicationController
 
 
   def signout
-    @driver_id=@current_driver.id
+    @driver_id=current_driver.id
     @driver=Driver.find(@driver_id)
     @driver.status=0
-    response={message: Message.success}
-    @driver.save
+    if @driver.save
+      response={message: Message.success}
+    end
     json_response(response)
   end
    
@@ -50,8 +57,13 @@ class DriversController < ApplicationController
         @Drivers_distances_array = []
         @DriversList=[]
         @driver_hash=Hash.new()
-        @drivers = Driver.where("status = :status AND vehicle_kind = :kind",
+        @target_city=Geocoder.search("#{order.src_latitude},#{order.src_longitude}")
+        @drivers = Driver.where("status = :status AND vehicle_kind = :kind ",
         {status: 1, kind: @vehicle})
+        # Temp  
+        # AND city = :city
+        # ,city: @target_city.first.state
+        # end of Temp
         @SourceLatitude=order.src_latitude
         @SourceLogitude=order.src_longitude
         @Destination_Latitude=order.dest_latitude

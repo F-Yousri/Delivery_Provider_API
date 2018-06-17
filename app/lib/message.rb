@@ -45,4 +45,8 @@ class Message
     def self.driver_logout
       'Succesfully logged out'
     end
+
+    def self.driver_is_offline
+      ' Your are not logged in'
+    end
   end

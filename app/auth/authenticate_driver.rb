@@ -16,7 +16,7 @@ class AuthenticateDriver
     # verify driver credentials
     def driver
       driver = Driver.find_by(email: email)
-      return driver if driver && driver.authenticate(password)
+      return driver if driver && driver.password_digest == password
       # raise Authentication error if credentials are invalid
       raise(ExceptionHandler::AuthenticationError, Message.invalid_credentials)
     end
