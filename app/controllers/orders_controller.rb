@@ -28,6 +28,10 @@ class OrdersController < ApplicationController
         json_response(driver_response)
     end
       
+    def show 
+        # orders=Order.find_by(driver_id: )
+        response={ message: Message.success  }
+    end
     
     
 
