@@ -58,8 +58,12 @@ class DriversController < ApplicationController
         @DriversList=[]
         @driver_hash=Hash.new()
         @target_city=Geocoder.search("#{order.src_latitude},#{order.src_longitude}")
-        @drivers = Driver.where("status = :status AND vehicle_kind = :kind AND city = :city",
-        {status: 1, kind: @vehicle,city: @target_city.first.state})
+        @drivers = Driver.where("status = :status AND vehicle_kind = :kind ",
+        {status: 1, kind: @vehicle})
+        # Temp  
+        # AND city = :city
+        # ,city: @target_city.first.state
+        # end of Temp
         @SourceLatitude=order.src_latitude
         @SourceLogitude=order.src_longitude
         @Destination_Latitude=order.dest_latitude
