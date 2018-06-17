@@ -85,7 +85,7 @@ ActiveRecord::Schema.define(version: 2018_06_17_120224) do
     t.integer "driver_id"
   end
 
-  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "domain"
     t.string "secret_key"
     t.datetime "created_at", null: false
@@ -93,7 +93,7 @@ ActiveRecord::Schema.define(version: 2018_06_17_120224) do
     t.string "status"
   end
 
-  create_table "vehicles", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "vehicles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.float "min_weight"
     t.float "max_weight"
     t.string "vehicle_kind"
