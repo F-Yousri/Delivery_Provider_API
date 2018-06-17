@@ -26,4 +26,6 @@ class ApplicationController < ActionController::Base
           json_response({message: Message.account_not_verified})
        end
     end
+
+   
 end

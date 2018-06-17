@@ -1,9 +1,13 @@
 class Driver < ApplicationRecord
-    # To Set address and get Lon & Lat
-    # geocoded_by :address 
-    # after_validation :geocode
+    
+    reverse_geocoded_by :latitude, :longitude, :address => :city do |obj,results|
+        if geo = results.first
+          obj.city = geo.state
+        end
+      end
+
+    after_validation :reverse_geocode
    
-    has_secure_password
     enum status: { offline: 0, online: 1, busy: 2 }
 
     validates :latitude,:longitude,:name, :phone, :email, :password_digest, :vehicle_kind, presence: true

@@ -1,4 +1,5 @@
 RailsAdmin.config do |config|
+  
 
   ### Popular gems integration
 
@@ -39,5 +40,18 @@ RailsAdmin.config do |config|
     ## With an audit adapter, you can add:
     # history_index
     # history_show
+    # config.model 'Driver' do
+    #   create do 
+    #     field :longitude 
+    #     field :latitude 
+    #     field :name
+    #     field :phone 
+    #     field :email 
+    #     field :password_digest
+    #     field :vehicle_kind
+    #     field :device_token
+    #     field :city
+    #   end
+    # end
   end
 end
