@@ -5,7 +5,7 @@ class Driver < ApplicationRecord
    
     has_secure_password
     enum status: { offline: 0, online: 1, busy: 2 }
-
+    has_many :orders
     validates :latitude,:longitude,:name, :phone, :email, :password_digest, :vehicle_kind, presence: true
     validates :phone, uniqueness: { message: 'Phone Already Exists' }
     validates :email, uniqueness: { message: 'Email Already Exists' }

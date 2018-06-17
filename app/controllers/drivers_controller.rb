@@ -95,6 +95,8 @@ class DriversController < ApplicationController
         if drivers
         for driver in drivers do
           if true #self.check_available?(driver,order)
+            order.driver_id=driver.id
+            order.save
             driver={name:driver.name ,phone: driver.phone ,vehicle_kind: driver.vehicle_kind}
             return response = {message: Message.success, driver: driver}                
           end

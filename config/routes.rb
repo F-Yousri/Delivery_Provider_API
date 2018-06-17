@@ -12,4 +12,5 @@ Rails.application.routes.draw do
   post '/api/v1/authentication/getvehicle', to: 'vehicles#get_vehicle'
   post '/api/v1/authentication/users/signin', to: 'authentication_user#authenticate'
   post '/registeruser' ,to: 'users#create'
+  get '/api/v1/orders', to: 'orders#show'
 end
