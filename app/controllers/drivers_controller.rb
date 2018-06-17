@@ -7,6 +7,11 @@ class DriversController < ApplicationController
 
     def authorize_request
       @current_driver = (AuthorizeApiRequest.new(request.headers).call)[:driver]
+      if @current_driver 
+        driver=Driver.find(current_driver.id)
+        driver.status=1
+        driver.save
+      end
     end
 
     def is_logged_in
