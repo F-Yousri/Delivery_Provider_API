@@ -31,6 +31,6 @@ module ExceptionHandler
   end
 
   def twenty(e)
-    json_response({ message: e.message }d)
+    json_response({ message: e.message })
   end
 end
