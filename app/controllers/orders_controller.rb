@@ -14,7 +14,7 @@ class OrdersController < ApplicationController
         # distance between order source and destination
         @src_dest_distance=Geocoder::Calculations.distance_between([order.src_latitude,order.src_longitude], [order.dest_latitude,order.dest_longitude])
     
-        order.cost= (@src_dest_distance*1300)*vehicle["vehicle_cost_rate"]
+        order.cost= (@src_dest_distance*1.61)*vehicle["vehicle_cost_rate"]
         order.status=1
         if JSON.parse(driver_response)['message']=='success'
             order.save!
@@ -35,8 +35,7 @@ class OrdersController < ApplicationController
     end
     
     
-
     def order_params
-        params.permit(:src_latitude,:src_longitude,:dest_latitude,:dest_longitude,:payment_method,:time,:title,:images,:weight,:description,:pickup_location,:dropoff_location)
+        params.permit(:src_latitude,:src_longitude,:dest_latitude,:dest_longitude,:payment_method,:time,:title,:weight,:description,:pickup_location,:dropoff_location,images: [])
     end
 end
