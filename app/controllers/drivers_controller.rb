@@ -11,7 +11,7 @@ class DriversController < ApplicationController
 
     def is_logged_in
       if !((AuthorizeApiRequest.new(request.headers).call)[:driver].status=='online')
-         json_response({message: Message.driver_is_offline,d: current_driver.status} )
+         json_response({message: Message.driver_is_offline} )
       end
     end
 
