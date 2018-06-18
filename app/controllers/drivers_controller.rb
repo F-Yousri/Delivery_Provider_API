@@ -117,10 +117,12 @@ class DriversController < ApplicationController
         return response = {message: Message.no_driver}       
       end
       
-      def self.check_available?(order,driver)
-        DriverNotification.send_notification(order,driver.device_token)
-        sleep 120
-        order.status == 1 ? true : false
+      def self.check_available?(driver, order)
+        resp=DriverNotification.send_notification(order,driver.device_token)
+        puts resp
+        # sleep 120
+        # order.status == 1 ? true : false
+        true
       end 
       def check_duplication
         if Driver.find_by_email(driver_params[:email])
