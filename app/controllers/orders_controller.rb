@@ -28,12 +28,9 @@ class OrdersController < ApplicationController
         json_response(driver_response)
     end
       
-    def show 
-        orders=Order.find_by(driver_id: current_driver.id)
-        response={ message: Message.success ,orders: orders  }
-        json_response(response)
-    end
-    
+    def authorize_request
+        @current_user = (AuthorizeApiRequestService.new(request.headers).call)[:user]
+      end
     
     def order_params
         params.permit(:src_latitude,:src_longitude,:dest_latitude,:dest_longitude,:payment_method,:time,:title,:weight,:description,:pickup_location,:dropoff_location,images: [])

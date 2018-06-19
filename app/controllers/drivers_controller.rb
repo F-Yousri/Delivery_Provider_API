@@ -14,6 +14,15 @@ class DriversController < ApplicationController
          json_response({message: Message.driver_is_offline} )
       end
     end
+   
+
+    def show 
+      orders=Order.where("status = :status AND driver_id = :driver ",
+        {status: 3, driver: current_driver.id})
+        # no 3 in status mean history as it is placed in order model
+      response={ message: Message.success ,orders: orders  }
+      json_response(response)
+  end
 
    def create
     @driver=Driver.new(driver_params)
