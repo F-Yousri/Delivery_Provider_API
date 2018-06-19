@@ -28,7 +28,7 @@ class GlobalUploader < CarrierWave::Uploader::Base
     end
 
     if model[model_image] 
-    "#{Rails.application.secrets.driver_images}/uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}/#{model[model_image]}"
+    "#{Rails.application.secrets.base_driver_images}/uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}/#{model[model_image]}"
     else
       ""
     end
