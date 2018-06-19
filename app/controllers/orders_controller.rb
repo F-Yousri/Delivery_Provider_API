@@ -28,11 +28,7 @@ class OrdersController < ApplicationController
         json_response(driver_response)
     end
       
-    def show 
-        orders=Order.find_by(driver_id: current_driver.id)
-        response={ message: Message.success ,orders: orders  }
-        json_response(response)
-    end
+   
     def authorize_request
         @current_driver = (AuthorizeApiRequest.new(request.headers).call)[:driver]
       end

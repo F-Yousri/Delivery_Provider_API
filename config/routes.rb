@@ -7,10 +7,11 @@ Rails.application.routes.draw do
   post '/registerdriver' ,to: 'drivers#create' #temp 
   post '/api/v1/authentication/drivers/signin' ,to: 'authentication#authenticate'
   post '/api/v1/authentication/drivers/updatelocation' ,to: 'drivers#update'
+  get '/api/v1/authentication/drivers/show', to: 'drivers#show'
   post '/api/v1/drivers/registertoken' ,to: 'drivers#reg_device_token'
   post '/api/v1/authentication/drivers/signout' ,to: 'drivers#signout'
   post '/api/v1/authentication/getvehicle', to: 'vehicles#get_vehicle'
   post '/api/v1/authentication/users/signin', to: 'authentication_user#authenticate'
   post '/registeruser' ,to: 'users#create' # temp
-  get '/api/v1/orders', to: 'orders#show' #temp
+  
 end
