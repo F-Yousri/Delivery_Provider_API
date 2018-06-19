@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_17_120224) do
+ActiveRecord::Schema.define(version: 2018_06_19_144628) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "name", null: false
@@ -67,8 +67,6 @@ ActiveRecord::Schema.define(version: 2018_06_17_120224) do
 
   create_table "orders", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "title"
-    t.string "dest_latitude"
-    t.string "src_latitude"
     t.date "time"
     t.string "images"
     t.datetime "created_at", null: false
@@ -83,9 +81,12 @@ ActiveRecord::Schema.define(version: 2018_06_17_120224) do
     t.string "pickup_location"
     t.string "dropoff_location"
     t.integer "driver_id"
+    t.integer "order_id"
+    t.float "src_latitude"
+    t.float "dest_latitude"
   end
 
-  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "domain"
     t.string "secret_key"
     t.datetime "created_at", null: false
@@ -93,7 +94,7 @@ ActiveRecord::Schema.define(version: 2018_06_17_120224) do
     t.string "status"
   end
 
-  create_table "vehicles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "vehicles", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.float "min_weight"
     t.float "max_weight"
     t.string "vehicle_kind"

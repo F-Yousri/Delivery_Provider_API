@@ -33,6 +33,6 @@ class OrdersController < ApplicationController
       end
     
     def order_params
-        params.permit(:src_latitude,:src_longitude,:dest_latitude,:dest_longitude,:payment_method,:time,:title,:weight,:description,:pickup_location,:dropoff_location,images: [])
+        params.permit(:src_latitude,:src_longitude,:dest_latitude,:dest_longitude,:payment_method,:time,:title,:weight,:description,:pickup_location,:dropoff_location,:images)
     end
 end

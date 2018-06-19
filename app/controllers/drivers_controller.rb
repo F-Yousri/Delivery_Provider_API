@@ -73,6 +73,7 @@ class DriversController < ApplicationController
         # AND city = :city
         # ,city: @target_city.first.state
         # end of Temp
+        if @drivers 
         @SourceLatitude=order.src_latitude
         @SourceLogitude=order.src_longitude
         @Destination_Latitude=order.dest_latitude
@@ -102,12 +103,15 @@ class DriversController < ApplicationController
         #Final Sorted Drivers Obj
           @Sorted_Drivers_Distances_Array.each do |driverloc|
           @DriverObject=@driver_hash[driverloc]
-          # @DriverLocation=driverloc
+         
           @DriversList.push(@DriverObject)
         end
         #End of SOrted Dirvers Obj
-        # render json: {fahd: @DriversList}
+        
         render json:(self.assign_driver(@DriversList,order))
+      else
+        json_response({message: "no drivers"})
+      end
          
       end
 
