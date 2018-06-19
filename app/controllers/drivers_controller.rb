@@ -21,7 +21,7 @@ class DriversController < ApplicationController
         {status: 3, driver: current_driver.id})
         # no 3 in status mean history as it is placed in order model
         driver=current_driver
-      response={ message: Message.success ,orders: orders ,d:driver }
+      response={ message: Message.success ,orders: orders}
       json_response(response)
   end
 
@@ -150,6 +150,6 @@ class DriversController < ApplicationController
       end
 
       def driver_params
-        params.permit(:name,:phone,:email,:latitude,:longitude,:password,:vehicle_kind)
+        params.permit(:name,:phone,:email,:latitude,:longitude,:password,:avatar,:vehicle_kind)
       end
 end
