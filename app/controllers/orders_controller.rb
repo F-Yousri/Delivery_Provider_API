@@ -33,7 +33,9 @@ class OrdersController < ApplicationController
         response={ message: Message.success ,orders: orders  }
         json_response(response)
     end
-    
+    def authorize_request
+        @current_driver = (AuthorizeApiRequest.new(request.headers).call)[:driver]
+      end
     
     def order_params
         params.permit(:src_latitude,:src_longitude,:dest_latitude,:dest_longitude,:payment_method,:time,:title,:weight,:description,:pickup_location,:dropoff_location,images: [])
