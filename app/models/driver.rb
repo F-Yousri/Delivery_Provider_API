@@ -14,4 +14,7 @@ class Driver < ApplicationRecord
     validates :phone, uniqueness: { message: 'Phone Already Exists' }
     validates :email, uniqueness: { message: 'Email Already Exists' }
 
+    mount_uploader :avatar, GlobalUploader
+
+
 end

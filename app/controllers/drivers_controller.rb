@@ -20,7 +20,8 @@ class DriversController < ApplicationController
       orders=Order.where("status = :status AND driver_id = :driver ",
         {status: 3, driver: current_driver.id})
         # no 3 in status mean history as it is placed in order model
-      response={ message: Message.success ,orders: orders  }
+        driver=current_driver
+      response={ message: Message.success ,orders: orders ,d:driver }
       json_response(response)
   end
 
