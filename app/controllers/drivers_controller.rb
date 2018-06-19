@@ -124,7 +124,7 @@ class DriversController < ApplicationController
             order.driver_id=driver.id
             order.save
             driver={name:driver.name ,phone: driver.phone ,vehicle_kind: driver.vehicle_kind}
-            return response = {message: Message.success, driver: driver}                
+            return response = {message: Message.success, driver: driver,provider_order_id: order.id}                
           end
         end
       end
