@@ -28,9 +28,8 @@ class OrdersController < ApplicationController
         json_response(driver_response)
     end
       
-   
     def authorize_request
-        @current_driver = (AuthorizeApiRequest.new(request.headers).call)[:driver]
+        @current_user = (AuthorizeApiRequestService.new(request.headers).call)[:user]
       end
     
     def order_params

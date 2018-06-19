@@ -16,10 +16,6 @@ class ApplicationController < ActionController::Base
   
     private
   
-    # Check for valid request token and return driver
-    def authorize_request
-        @current_user = (AuthorizeApiRequestService.new(request.headers).call)[:user]
-      end
     
       def is_verified
        if !((AuthorizeApiRequestService.new(request.headers).call)[:user].verified==true)
