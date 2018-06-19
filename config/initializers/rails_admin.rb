@@ -40,18 +40,7 @@ RailsAdmin.config do |config|
     ## With an audit adapter, you can add:
     # history_index
     # history_show
-    # config.model 'Driver' do
-    #   create do 
-    #     field :longitude 
-    #     field :latitude 
-    #     field :name
-    #     field :phone 
-    #     field :email 
-    #     field :password_digest
-    #     field :vehicle_kind
-    #     field :device_token
-    #     field :city
-    #   end
-    # end
+    config.excluded_models << Admin
+
   end
 end
