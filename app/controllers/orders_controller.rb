@@ -9,7 +9,7 @@ class OrdersController < ApplicationController
         json_response response={ message: Message.no_vehicle } and return if @vehicle.empty? 
     
         driver_response=DriversController.locations(order,@vehicle)
-        vehicle=Vehicle.find_by_vehicle_kind(JSON.parse(driver_response)["driver"]["vehicle_kind"])
+        vehicle=Vehicle.find(JSON.parse(driver_response)["driver"]["vehicle_id"])
        
         # distance between order source and destination
         @src_dest_distance=Geocoder::Calculations.distance_between([order.src_latitude,order.src_longitude], [order.dest_latitude,order.dest_longitude])

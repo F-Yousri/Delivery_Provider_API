@@ -49,4 +49,8 @@ class Message
     def self.driver_is_offline
       ' Your are not logged in'
     end
+
+    def self.order_already_deliverd
+      'Order Already Deliverd '
+    end
   end

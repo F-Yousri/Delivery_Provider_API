@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_19_154016) do
+ActiveRecord::Schema.define(version: 2018_06_19_221722) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "name", null: false
@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(version: 2018_06_19_154016) do
     t.string "device_token"
     t.string "city"
     t.string "avatar"
+    t.integer "vehicle_id"
   end
 
   create_table "orders", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
@@ -98,11 +99,11 @@ ActiveRecord::Schema.define(version: 2018_06_19_154016) do
   create_table "vehicles", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.float "min_weight"
     t.float "max_weight"
-    t.string "vehicle_kind"
     t.string "vehicle_number"
     t.float "vehicle_cost_rate"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "name"
   end
 
 end

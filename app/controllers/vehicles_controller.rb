@@ -7,7 +7,7 @@ class VehiclesController < ApplicationController
     end
 
     def driver_params
-        params.permit(:weight)
+        params.permit(:weight,:min_weight ,:max_weight ,:name ,:vehicle_cost_rate ,:vehicle_number)
       end
 
 end

@@ -63,71 +63,71 @@ class DriversController < ApplicationController
   end
    
     def self.locations(order,vehicle)
-        @vehicle = vehicle[0].vehicle_kind
+        @vehicle = vehicle[0].id
         @Drivers_distances_array = []
         @DriversList=[]
         @driver_hash=Hash.new()
         @target_city=Geocoder.search("#{order.src_latitude},#{order.src_longitude}")
-        @drivers = Driver.where("status = :status AND vehicle_kind = :kind ",
-        {status: 1, kind: @vehicle})
+        @drivers = Driver.where("status = :status AND vehicle_id = :vehicle_id ",
+        {status: 1, vehicle_id: @vehicle})
         # Temp  
         # AND city = :city
         # ,city: @target_city.first.state
         # end of Temp
-        if @drivers 
-        @SourceLatitude=order.src_latitude
-        @SourceLogitude=order.src_longitude
-        @Destination_Latitude=order.dest_latitude
-        @Destination_Logitude=order.dest_longitude
+        if @drivers !=nil 
+          @SourceLatitude=order.src_latitude
+          @SourceLogitude=order.src_longitude
+          @Destination_Latitude=order.dest_latitude
+          @Destination_Logitude=order.dest_longitude
+          
         
-      
-        @hash = Gmaps4rails.build_markers(@drivers) do |driver, marker|
-          marker.lat driver.latitude
-          marker.lng driver.longitude
-          # put all driver in array to loop on them
-          @Distance=Geocoder::Calculations.distance_between([@SourceLatitude,@SourceLogitude], [driver.latitude, driver.longitude])
-          if !@Distance.nan?  then 
-            @Drivers_distances_array << @Distance
-           @driver_hash[@Distance]=driver
+          @hash = Gmaps4rails.build_markers(@drivers) do |driver, marker|
+            marker.lat driver.latitude
+            marker.lng driver.longitude
+            # put all driver in array to loop on them
+            @Distance=Geocoder::Calculations.distance_between([@SourceLatitude,@SourceLogitude], [driver.latitude, driver.longitude])
+            if !@Distance.nan?  then 
+              @Drivers_distances_array << @Distance
+            @driver_hash[@Distance]=driver
+            end
+            # end of driver array   
           end
-          # end of driver array   
-        end
-      
-        #Sort Drivers Locations
-        @Sorted_Drivers_Distances_Array=@Drivers_distances_array.sort
-        # End of sorting drivers locations
-
-        # Getting Nearest Driver
-        @NearestDriver=@driver_hash[@Sorted_Drivers_Distances_Array[0]]
-        # End of getting nearest driver
-            
-        #Final Sorted Drivers Obj
-          @Sorted_Drivers_Distances_Array.each do |driverloc|
-          @DriverObject=@driver_hash[driverloc]
-         
-          @DriversList.push(@DriverObject)
-        end
-        #End of SOrted Dirvers Obj
         
-        render json:(self.assign_driver(@DriversList,order))
-      else
-        json_response({message: "no drivers"})
-      end
+          #Sort Drivers Locations
+          @Sorted_Drivers_Distances_Array=@Drivers_distances_array.sort
+          # End of sorting drivers locations
+
+          # Getting Nearest Driver
+          @NearestDriver=@driver_hash[@Sorted_Drivers_Distances_Array[0]]
+          # End of getting nearest driver
+              
+          #Final Sorted Drivers Obj
+            @Sorted_Drivers_Distances_Array.each do |driverloc|
+            @DriverObject=@driver_hash[driverloc]
+          
+            @DriversList.push(@DriverObject)
+          end
+          #End of SOrted Dirvers Obj
+          
+          render json:(self.assign_driver(@DriversList,order))
+        else
+          json_response({message: "no drivers"})
+        end
          
       end
-
 
       def self.assign_driver(drivers,order)
         if drivers
-        for driver in drivers do
-          if  self.check_available?(driver,order)
+          for driver in drivers do
+          # if  self.check_available?(driver,order)
             order.driver_id=driver.id
             order.save
-            driver={name:driver.name ,phone: driver.phone ,vehicle_kind: driver.vehicle_kind}
+            vehicle=Vehicle.find(driver.vehicle_id).name
+            driver={name:driver.name ,phone: driver.phone ,vehicle_id: driver.vehicle_id,vehicle_kind: vehicle }
             return response = {message: Message.success, driver: driver,provider_order_id: order.id}                
+          # end
           end
         end
-      end
         return response = {message: Message.no_driver}       
       end
       
@@ -144,9 +144,23 @@ class DriversController < ApplicationController
             render json: @response      
         elsif Driver.find_by_phone(driver_params[:phone])
             @response = {message: "Phone Already Exists"}
-            render json: @response
-            
+            render json: @response  
         end
+      end
+
+      def confirm_delivery
+        order=Order.where("status = :status AND driver_id = :driver_id ",{status: 1, driver_id: current_driver.id })
+        if order[0]
+        order[0].status= 3
+        order[0].save
+        driver=Driver.find(current_driver.id)
+        driver.status = 1
+        driver.save
+          response={message: Message.success}
+        else
+          response={message: Message.order_already_deliverd}
+        end
+        json_response(response)
       end
 
       def driver_params
