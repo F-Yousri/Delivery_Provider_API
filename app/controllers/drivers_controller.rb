@@ -1,9 +1,9 @@
 class DriversController < ApplicationController
     require 'json'
-    before_action :authorize_request ,:is_logged_in
+    before_action :authorize_request ,:is_logged_in, except: %i[get_location create]  
     before_action :check_duplication , only: :create
-    skip_before_action :authorize_request, only: :create
-    skip_before_action :is_logged_in, only: :create 
+    # skip_before_action :authorize_request, only: [:create, :getlocation] 
+    # skip_before_action :is_logged_in, only: [:create, :getlocation] 
 
     def authorize_request
       @current_driver = (AuthorizeApiRequest.new(request.headers).call)[:driver]
@@ -162,7 +162,12 @@ class DriversController < ApplicationController
         end
         json_response(response)
       end
-
+      def get_location
+        order=Order.find_by_id(params[:order_id])
+        driver=order.driver
+        location={message: 'success', location: {longitude: driver.longitude,latitude: driver.latitude}}
+        json_response location
+      end
       def driver_params
         params.permit(:name,:phone,:email,:latitude,:longitude,:password,:avatar,:vehicle_kind)
       end

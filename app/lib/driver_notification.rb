@@ -6,7 +6,7 @@ class DriverNotification
      def self.send_notification(headers = {},params = {},order, device_token)
    
        #this is our header we will place our server api key
-       headers.merge!({"Authorization" => "key=AAAASIV9WLc:APA91bGI29Y5lSrSBDXSZ8FNqqFEZhjZKtafK2Mccp_muwCD7lD9LKvz8INKPgX75NhMNL-2nPUbm6nyHhgyA-EKiU6zHfXq4I-mf_-GQ5xr6WScw6kTtBXDFQEhl6tAoP1cVKfco1fy", "Content-Type" => "application/json"})
+       headers.merge!({"Authorization" => "key=AAAA3cB_zrg:APA91bFV3D9nL_4D6VlVPgZKm_f_a82MgHlzmiMIU21hPcRBwZ3lbGXSWVPPbC2DRMghZoxnx4OBny2ZN0E7XSWRRKcSDreXHBaO7HIyzgrrMiHRhBqvgno9weJzdwO_f8OsX8SmpIFpVi2SFXSD1u3E_zIHefuW4A", "Content-Type" => "application/json"})
    
        #Here is the body and here we will pass FIREBASE_NOTIFICATION_URL#####
    
@@ -28,9 +28,7 @@ class DriverNotification
        notification[:body]=body
        notification[:title]=title
        params[:to]=token
-       message[:notification] = notification
-   
-       params[:data] = message
+       params[:notification] = notification
       #  data = {}
       #  data[:notification_id] = order[:id]
       #  data[:title] = order[:title]
