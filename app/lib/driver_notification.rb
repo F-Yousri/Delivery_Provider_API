@@ -22,24 +22,17 @@ class DriverNotification
        params = {}
        message = {}
        notification = {}
-       body = order
+       body = {
+                pickup_location: order.pickup_location, dropoff_location: order.dropoff_location, 
+                src_latitude: order.src_latitude, src_longitude: order.src_longitude, dest_longitude:order.dest_longitude,
+                dest_latitude: order.dest_latitude, images: order.images, order_id: order.id 
+              }
        title = 'new order request'
        token = device_token
        notification[:body]=body
        notification[:title]=title
        params[:to]=token
        params[:notification] = notification
-      #  data = {}
-      #  data[:notification_id] = order[:id]
-      #  data[:title] = order[:title]
-      #  data[:description] = order[:description]
-      #  data[:src_latitude] = order[:src_latitude]
-      #  data[:src_longitude] = order[:src_longitude]
-      #  data[:dest_latitude] = order[:dest_latitude]
-      #  data[:dest_longitude] = order[:dest_longitude]
-       
-   
-      #  params[:message] = data
        params
      end 
 end

@@ -119,13 +119,13 @@ class DriversController < ApplicationController
       def self.assign_driver(drivers,order)
         if drivers
           for driver in drivers do
-          # if  self.check_available?(driver,order)
+          if  self.check_available?(driver,order)
             order.driver_id=driver.id
             order.save
             vehicle=Vehicle.find(driver.vehicle_id).name
             driver={name:driver.name ,phone: driver.phone ,vehicle_id: driver.vehicle_id,vehicle_kind: vehicle }
             return response = {message: Message.success, driver: driver,provider_order_id: order.id}                
-          # end
+          end
           end
         end
         return response = {message: Message.no_driver}       
@@ -134,8 +134,6 @@ class DriversController < ApplicationController
       def self.check_available?(driver, order)
         resp=DriverNotification.send_notification(order,driver.device_token)
         puts resp
-        # sleep 120
-        # order.status == 1 ? true : false
         true
       end 
       def check_duplication

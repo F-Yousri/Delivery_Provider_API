@@ -1,7 +1,7 @@
 
 class OrdersController < ApplicationController
  require 'json'
- before_action :authorize_request 
+#  before_action :authorize_request 
     def create 
         order = Order.new(order_params)
         @vehicle = Vehicle.where("min_weight <= :weight AND max_weight >= :weight",
